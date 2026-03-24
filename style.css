@@ -1080,3 +1080,5 @@ p {
         font-size: 2.5rem;
     }
 }
+
+html, body, a, button, .project-card, .logo, .nav-links a, .btn { cursor: none !important; }
