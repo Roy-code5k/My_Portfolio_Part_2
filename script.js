@@ -239,4 +239,41 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(triggerScramble, 800);
     }
 
+    // 6. View Counter Logic
+    const viewCountElement = document.getElementById('view-count');
+    if (viewCountElement) {
+        fetch('https://api.counterapi.dev/v1/hrituraj_roy/portfolio/up')
+            .then(response => response.json())
+            .then(data => {
+                const count = data.count || data.value || 0;
+                
+                // Animate counting up
+                const duration = 2000;
+                const startTime = performance.now();
+                
+                function updateCounter(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    const progress = Math.min(elapsedTime / duration, 1);
+                    
+                    // easeOutQuart
+                    const easeOut = 1 - Math.pow(1 - progress, 4);
+                    const currentDisplay = Math.floor(easeOut * count);
+                    
+                    viewCountElement.innerText = currentDisplay.toLocaleString();
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        viewCountElement.innerText = count.toLocaleString();
+                    }
+                }
+                
+                requestAnimationFrame(updateCounter);
+            })
+            .catch(err => {
+                console.error('Error fetching view count:', err);
+                viewCountElement.innerText = "---";
+            });
+    }
+
 });
