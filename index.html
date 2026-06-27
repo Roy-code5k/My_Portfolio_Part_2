@@ -23,8 +23,13 @@
 
     <header class="glass-header">
         <div class="header-content" style="position: relative;">
-            <div class="logo-name">
-                <span class="name-text">hrituraj</span><span class="pink-slash">/</span><span class="blink-cursor">></span>
+            <div class="logo-group">
+                <div class="profile-ring" id="profile-trigger" title="View Photo">
+                    <img src="profile.jpg" alt="Hrituraj Roy" class="profile-pic">
+                </div>
+                <div class="logo-name">
+                    <span class="name-text">hrituraj</span><span class="pink-slash">/</span><span class="blink-cursor">></span>
+                </div>
             </div>
 
             <div class="nav-views" title="Total Profile Views">
@@ -38,6 +43,18 @@
             </div>
         </div>
     </header>
+
+    <!-- Profile Lightbox Modal -->
+    <div class="profile-lightbox" id="profile-lightbox">
+        <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightbox-close">&times;</button>
+            <div class="lightbox-ring">
+                <img src="profile.jpg" alt="Hrituraj Roy" class="lightbox-image">
+            </div>
+            <p class="lightbox-name">Hrituraj Roy</p>
+        </div>
+    </div>
 
     <main class="bento-container" id="home">
 

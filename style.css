@@ -71,6 +71,162 @@ body {
     align-items: center;
 }
 
+/* Logo Group */
+.logo-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Instagram-style Profile Ring */
+.profile-ring {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    padding: 2.5px;
+    flex-shrink: 0;
+    animation: ringRotate 3s linear infinite;
+}
+
+@keyframes ringRotate {
+    0% {
+        background: linear-gradient(0deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+
+    25% {
+        background: linear-gradient(90deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+
+    50% {
+        background: linear-gradient(180deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+
+    75% {
+        background: linear-gradient(270deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+
+    100% {
+        background: linear-gradient(360deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--bg-color);
+    display: block;
+}
+
+#profile-trigger {
+    cursor: pointer !important;
+    transition: transform 0.3s ease;
+}
+
+#profile-trigger:hover {
+    transform: scale(1.1);
+}
+
+/* Profile Lightbox Modal */
+.profile-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.profile-lightbox.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.lightbox-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    transform: scale(0.8);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.profile-lightbox.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-ring {
+    max-width: 90vw;
+    max-height: 80vh;
+    border-radius: 16px;
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    padding: 3px;
+    animation: ringRotate 3s linear infinite;
+}
+
+.lightbox-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+    object-fit: contain;
+    max-height: 80vh;
+    display: block;
+}
+
+.lightbox-name {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.lightbox-close:hover {
+    background: var(--accent-pink);
+    transform: rotate(90deg) scale(1.1);
+}
+
 /* Logo Styles */
 .logo-name {
     display: flex;
@@ -83,7 +239,7 @@ body {
     white-space: nowrap;
     border-right: none;
     width: 0;
-    animation: typing 15s ease-out forwards;
+    animation: typing 4s ease-out forwards;
 }
 
 @keyframes typing {
@@ -195,10 +351,13 @@ body {
 }
 
 @keyframes pulseIcon {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
         transform: scale(1);
     }
+
     50% {
         opacity: 0.7;
         transform: scale(1.1);
@@ -293,7 +452,7 @@ body {
     left: 0;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    z-index: 9999;
+    z-index: 99999;
     pointer-events: none;
 }
 

@@ -275,5 +275,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 viewCountElement.innerText = "---";
             });
     }
+    // 7. Profile Lightbox
+    const profileTrigger = document.getElementById('profile-trigger');
+    const lightbox = document.getElementById('profile-lightbox');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+
+    if (profileTrigger && lightbox) {
+        profileTrigger.addEventListener('click', () => {
+            lightbox.classList.add('active');
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+        };
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxBackdrop.addEventListener('click', closeLightbox);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    }
 
 });
