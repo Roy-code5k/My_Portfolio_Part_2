@@ -62,135 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }, index * 150);
     });
 
-    // 3. Project Card Click Handlers
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        card.style.cursor = 'pointer';
 
-        card.addEventListener('click', (e) => {
-            // Don't trigger if user clicked on a link directly
-            if (e.target.tagName === 'A') return;
-
-            const liveLink = card.querySelector('a[href*="http"]:not([href*="github"])');
-            const githubLink = card.querySelector('a[href*="github"]');
-
-            // Prefer Live link, fallback to GitHub
-            const targetLink = liveLink || githubLink;
-
-            if (targetLink) {
-                window.open(targetLink.href, '_blank');
-            }
-        });
-    });
-
-    // 4. Interactive Fluid Gradient Animation (Original section 3, now 4)
-    const canvas = document.getElementById('particle-canvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        class Orb {
-            constructor(color) {
-                this.radius = (Math.random() * 150) + 200; // Extra large for liquid feel
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                // Base velocity
-                this.dx = (Math.random() - 0.5) * 1.5;
-                this.dy = (Math.random() - 0.5) * 1.5;
-                this.color = color;
-
-                // For organic pulse
-                this.baseRadius = this.radius;
-                this.angle = Math.random() * Math.PI * 2;
-                this.pulseSpeed = 0.02;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-                ctx.closePath();
-            }
-
-            update() {
-                // Organic movement (pulse size)
-                this.angle += this.pulseSpeed;
-                this.radius = this.baseRadius + Math.sin(this.angle) * 20;
-
-                // Mouse Interaction (Liquid Repulsion)
-                // Calculate distance to mouse
-                const dxMouse = mouseX - this.x;
-                const dyMouse = mouseY - this.y;
-                const distance = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
-                const interactionRadius = 400;
-
-                if (distance < interactionRadius) {
-                    // Move away from mouse
-                    const forceDirectionX = dxMouse / distance;
-                    const forceDirectionY = dyMouse / distance;
-                    const force = (interactionRadius - distance) / interactionRadius;
-                    const directionX = forceDirectionX * force * 3; // Push strength
-                    const directionY = forceDirectionY * force * 3;
-
-                    this.x -= directionX;
-                    this.y -= directionY;
-                }
-
-                // Bounce off walls
-                if (this.x + this.radius > canvas.width) this.dx = -Math.abs(this.dx);
-                if (this.x - this.radius < 0) this.dx = Math.abs(this.dx);
-                if (this.y + this.radius > canvas.height) this.dy = -Math.abs(this.dy);
-                if (this.y - this.radius < 0) this.dy = Math.abs(this.dy);
-
-                // Constant ambient movement
-                this.x += this.dx;
-                this.y += this.dy;
-
-                this.draw();
-            }
-        }
-
-        let orbs = [];
-        function init() {
-            orbs = [];
-            // Create theme-colored liquid blobs
-            orbs.push(new Orb('#FF2E63')); // Pink
-            orbs.push(new Orb('#FF9F1C')); // Orange
-            orbs.push(new Orb('#FF2E63')); // Pink
-            orbs.push(new Orb('#FF9F1C')); // Orange
-            orbs.push(new Orb('#6C1BF9')); // Deep Purple accent for depth
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Screen blend mode for glowing look
-            ctx.globalCompositeOperation = 'screen';
-
-            for (let i = 0; i < orbs.length; i++) {
-                orbs[i].update();
-            }
-
-            ctx.globalCompositeOperation = 'source-over';
-        }
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            init();
-        });
-
-        init();
-        animate();
-    }
 
     // 5. Name Scramble/Glitch Effect (Hrituraj Roy)
     const firstName = document.getElementById('name-text');
     const surname = document.getElementById('surname-text');
-    const headerName = document.getElementById('header-name');
+
 
     if (firstName && surname) {
         // Aesthetic tech characters (Katakana + Glyphs)
@@ -246,28 +123,28 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 const count = data.count || data.value || 0;
-                
+
                 // Animate counting up
                 const duration = 2000;
                 const startTime = performance.now();
-                
+
                 function updateCounter(currentTime) {
                     const elapsedTime = currentTime - startTime;
                     const progress = Math.min(elapsedTime / duration, 1);
-                    
+
                     // easeOutQuart
                     const easeOut = 1 - Math.pow(1 - progress, 4);
                     const currentDisplay = Math.floor(easeOut * count);
-                    
+
                     viewCountElement.innerText = currentDisplay.toLocaleString();
-                    
+
                     if (progress < 1) {
                         requestAnimationFrame(updateCounter);
                     } else {
                         viewCountElement.innerText = count.toLocaleString();
                     }
                 }
-                
+
                 requestAnimationFrame(updateCounter);
             })
             .catch(err => {
@@ -296,6 +173,150 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeLightbox();
         });
+    }
+
+    // 8. Timeline Animations
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const timelineSvg = document.getElementById('timeline-svg');
+    const timelinePath = document.getElementById('timeline-path');
+    const timelineContainer = document.getElementById('journey-timeline');
+
+    if (timelineItems.length > 0 && timelineSvg && timelinePath) {
+        let currentDrawLength = 0;
+        let targetDrawLength = 0;
+
+        // Intersection Observer for slide-in cards
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('hidden');
+                }
+            });
+        }, { threshold: 0.2, rootMargin: '0px 0px -100px 0px' });
+        timelineItems.forEach((item) => {
+            observer.observe(item);
+        });
+
+        // Draw SVG straight line connecting dots
+        const drawCurve = () => {
+            if (!timelineContainer) return;
+            const containerRect = timelineContainer.getBoundingClientRect();
+
+            // Set SVG size
+            timelineSvg.setAttribute('viewBox', `0 0 ${containerRect.width} ${containerRect.height}`);
+
+            // Calculate perfect center line for X coordinate to bypass animation translation offsets
+            const centerX = containerRect.width / 2;
+
+            // Get all dots positions relative to container (centered vertically on each card/item)
+            const dots = Array.from(timelineItems).map(item => {
+                const rect = item.getBoundingClientRect();
+                return {
+                    x: centerX,
+                    y: rect.top - containerRect.top + (rect.height / 2)
+                };
+            });
+
+            if (dots.length < 2) return;
+
+            // Generate straight vertical line path exactly from first dot to last dot
+            let pathD = `M ${dots[0].x} ${dots[0].y}`;
+            for (let i = 1; i < dots.length; i++) {
+                pathD += ` L ${dots[i].x} ${dots[i].y + 55}`;
+            }
+
+            timelinePath.setAttribute('d', pathD);
+
+            // Position the SVG circles and store their relative Y position
+            const circles = timelineSvg.querySelectorAll('.timeline-circle');
+            dots.forEach((dot, index) => {
+                if (circles[index]) {
+                    circles[index].setAttribute("cx", dot.x);
+                    circles[index].setAttribute("cy", dot.y);
+                    circles[index].dataset.y = dot.y;
+                }
+            });
+
+            // Setup dash array for drawing animation
+            const pathLength = timelinePath.getTotalLength();
+            timelinePath.style.strokeDasharray = pathLength;
+            timelinePath.style.strokeDashoffset = pathLength;
+        };
+
+        // Scroll event to calculate target draw length
+        const animateLine = () => {
+            const pathLength = timelinePath.getTotalLength();
+            if (pathLength === 0) return; // not drawn yet
+
+            const rect = timelineContainer.getBoundingClientRect();
+            // Calculate how far we've scrolled past the top of the container
+            const scrollPercent = (window.innerHeight - rect.top) / (rect.height + window.innerHeight / 2);
+
+            targetDrawLength = pathLength * scrollPercent;
+            // Clamp target between 0 and pathLength
+            targetDrawLength = Math.max(0, Math.min(pathLength, targetDrawLength));
+        };
+
+        // Easing animation loop to chase targetDrawLength (Lerping)
+        const animateTimeline = () => {
+            const pathLength = timelinePath.getTotalLength();
+            if (pathLength === 0) {
+                requestAnimationFrame(animateTimeline);
+                return;
+            }
+
+            currentDrawLength += (targetDrawLength - currentDrawLength) * 0.05;
+            timelinePath.style.strokeDashoffset = pathLength - currentDrawLength;
+
+            // Use SVG geometry to find current draw coordinates (glowing tip of the line)
+            const point = timelinePath.getPointAtLength(currentDrawLength);
+
+            // Move the line head (glowing energy ball)
+            const head = document.getElementById('line-head');
+            if (head) {
+                head.setAttribute("cx", point.x);
+                head.setAttribute("cy", point.y);
+                if (currentDrawLength > 2) {
+                    head.classList.add('active');
+                } else {
+                    head.classList.remove('active');
+                }
+            }
+
+            // Animate dynamic circles when the line reaches them
+            const circles = timelineSvg.querySelectorAll('.timeline-circle');
+            circles.forEach(circle => {
+                const dotY = parseFloat(circle.dataset.y || 0);
+                if (point.y >= dotY) {
+                    circle.classList.add('active');
+                } else {
+                    circle.classList.remove('active');
+                }
+            });
+
+            requestAnimationFrame(animateTimeline);
+        };
+
+        // Debounce resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                drawCurve();
+                animateLine();
+            }, 100);
+        });
+
+        // Initialize
+        setTimeout(() => {
+            drawCurve();
+            animateLine();
+        }, 100);
+
+        // Start animation loop
+        animateTimeline();
+
+        window.addEventListener('scroll', animateLine, { passive: true });
     }
 
 });

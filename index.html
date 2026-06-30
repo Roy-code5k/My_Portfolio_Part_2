@@ -18,7 +18,11 @@
 <body>
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
-    <canvas id="particle-canvas"></canvas>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+    </div>
     <div class="grain-overlay"></div>
 
     <header class="glass-header">
@@ -28,7 +32,8 @@
                     <img src="profile.jpg" alt="Hrituraj Roy" class="profile-pic">
                 </div>
                 <div class="logo-name">
-                    <span class="name-text">hrituraj</span><span class="pink-slash">/</span><span class="blink-cursor">></span>
+                    <span class="name-text">hrituraj</span><span class="pink-slash">/</span><span
+                        class="blink-cursor">></span>
                 </div>
             </div>
 
@@ -70,7 +75,6 @@
                     build robust web solutions.</p>
                 <div class="intro-actions">
                     <a href="contact.html" class="btn btn-primary">Hire Me</a>
-                    <a href="#projects" class="btn btn-secondary">View Projects</a>
                 </div>
             </div>
         </div>
@@ -143,131 +147,62 @@
                 </div>
             </div>
         </div>
+        <!-- My Journey Section -->
+        <section class="journey-section">
+            <div class="journey-header">
+                <h2 class="journey-title">My <span class="gradient-text">Journey</span></h2>
+                <p class="journey-subtitle">"Resilience forged in discipline, purpose found in code"</p>
+            </div>
 
-        <!-- Tile 4: My Journey - 3 Phases -->
-        <div class="bento-tile tile-exp">
-            <h3>My Journey</h3>
-            <p class="journey-tagline">"Resilience forged in discipline, purpose found in code"</p>
+            <div class="timeline" id="journey-timeline">
+                <svg class="timeline-curve" id="timeline-svg">
+                    <path class="timeline-path" id="timeline-path" fill="none"></path>
+                    <circle id="line-head"></circle>
+                    <circle class="timeline-circle" data-index="0"></circle>
+                    <circle class="timeline-circle" data-index="1"></circle>
+                    <circle class="timeline-circle" data-index="2"></circle>
+                </svg>
 
-            <div class="journey-phases">
-                <!-- Phase 1: Roots -->
-                <div class="phase-card" data-phase="roots">
-                    <div class="phase-header">
-                        <div class="phase-icon">🏗️</div>
-                        <div class="phase-info">
-                            <h4>THE FOUNDATION </h4>
-                            <span class="phase-years">2005-2016</span>
-                        </div>
-                    </div>
-                    <p class="phase-summary">Fuel to the Childhood Dreams</p>
-                    <div class="phase-tooltip">
-                        <strong>Where it began:</strong> Born in a small village, my mother saw potential beyond our
-                        circumstances. Her courage moved us to town school, where I discovered Sainik School Purulia.
-                        Earned my place there and shaped by merit.
+                <!-- Phase 1 -->
+                <div class="timeline-item left hidden">
+                    <div class="timeline-card">
+                        <span class="timeline-years">2005 — 2016</span>
+                        <h3>THE FOUNDATION</h3>
+                        <p class="timeline-summary">Fuel to the Childhood Dreams</p>
+                        <p class="timeline-detail">Born in a small village, my mother saw potential beyond our
+                            circumstances. Her courage moved us to town school, where I discovered Sainik School
+                            Purulia.
+                            Earned my place there — shaped by merit.</p>
                     </div>
                 </div>
 
-                <!-- Phase 2: Warrior -->
-                <div class="phase-card" data-phase="warrior">
-                    <div class="phase-header">
-                        <div class="phase-icon">⚔️</div>
-                        <div class="phase-info">
-                            <h4>THE ARENA</h4>
-                            <span class="phase-years">2016-2024</span>
-                        </div>
-                    </div>
-                    <p class="phase-summary">NCC • Sports • Innovation</p>
-                    <div class="phase-tooltip">
-                        Thrived in boarding school's military environment.
-                        Led NCC drills,pushed physical limits. Then ATAL Innovation
-                        Mission opened a new world—IoT, sensors, code. Built projects, won district events. Soldier
-                        mindset met maker spirit.
+                <!-- Phase 2 -->
+                <div class="timeline-item right hidden">
+                    <div class="timeline-card">
+                        <span class="timeline-years">2016 — 2024</span>
+                        <h3>THE ARENA</h3>
+                        <p class="timeline-summary">NCC • Sports • Innovation</p>
+                        <p class="timeline-detail">Thrived in boarding school's military environment. Led NCC drills,
+                            pushed
+                            physical limits. Then ATAL Innovation Mission opened a new world — IoT, sensors, code. Built
+                            projects, won district events. Soldier mindset met maker spirit.</p>
                     </div>
                 </div>
 
-                <!-- Phase 3: Builder -->
-                <div class="phase-card" data-phase="builder">
-                    <div class="phase-header">
-                        <div class="phase-icon">🛡️</div>
-                        <div class="phase-info">
-                            <h4>A WARRIOR</h4>
-                            <span class="phase-years">2024-Present</span>
-                        </div>
-                    </div>
-                    <p class="phase-summary">Technology • Polaris • Hustler</p>
-                    <div class="phase-tooltip">
-                        Army didn't happen. Hurt, but didn't break.
-                        Channeled that warrior discipline into full-stack development at Polaris School of Technology.
-                        Building solutions that matter. Hackathons, freelance and relentless
-                        growth with unstoppable momentum.
+                <!-- Phase 3 -->
+                <div class="timeline-item left hidden">
+                    <div class="timeline-card">
+                        <span class="timeline-years">2024 — Present</span>
+                        <h3>A WARRIOR</h3>
+                        <p class="timeline-summary">Technology • Polaris • Hustler</p>
+                        <p class="timeline-detail">Army didn't happen. Hurt, but didn't break. Channeled that warrior
+                            discipline into full-stack development at Polaris School of Technology. Building solutions
+                            that
+                            matter. Hackathons, freelance and relentless growth with unstoppable momentum.</p>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Tile 5: Project 1 (ProfileHub) -->
-        <!-- Tile 5: Projects Gallery -->
-        <div class="bento-tile tile-gallery" id="projects">
-            <h3 style="grid-column: 1 / -1; margin-bottom: 0;">Featured Projects</h3>
-            <div class="gallery-grid">
-                <!-- Project 1 -->
-                <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #2a1b2d, #18181b);">
-                        <i class="fas fa-user-circle"></i>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-tag" data-tooltip="Django backend + PostgreSQL database">Full Stack</div>
-                        <h4>ProfileHub (Django)</h4>
-                        <p>Secure authentication & profile management system with PostgreSQL.</p>
-                        <div class="project-links">
-                            <a href="https://8byte-beryl.vercel.app" target="_blank">Live</a>
-                            <a href="https://github.com/Roy-code5k/Django_User_Auth" target="_blank">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #1d2a35, #18181b);">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-tag" data-tooltip="C++ firmware + IoT sensors">IoT & C++</div>
-                        <h4>Home Security</h4>
-                        <p>Real-time surveillance system integrating hardware sensors.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/Roy-code5k/Home-Security-System" target="_blank">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #2a251b, #18181b);">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-tag" data-tooltip="HTML, CSS, JavaScript + Vercel">Freelance</div>
-                        <h4>Neuroconsultation</h4>
-                        <p>Medical portfolio for Dr. Parth with patient resource management.</p>
-                        <div class="project-links">
-                            <a href="https://parthsorathiya.com/" target="_blank">Live</a>
-                            <a href="https://github.com/Roy-code5k/dr-parth-portfolio-website"
-                                target="_blank">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tile 6: Inspirational Quote -->
-        <div class="bento-tile tile-quote">
-            <blockquote>"My voice must be the loudest in the crowd to cheer for myself. If I don't then the crowd won't
-                "
-            </blockquote>
-            <cite>— Cdt. Hrituraj Roy</cite>
-        </div>
-
+        </section>
 
     </main>
 
@@ -288,8 +223,6 @@
         data-tooltip="Instagram" style="top: calc(50% + 30px);">
         <i class="fab fa-instagram"></i>
     </a>
-
-    </main>
 
     <script src="script.js"></script>
 </body>
