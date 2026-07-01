@@ -112,48 +112,39 @@ document.addEventListener('DOMContentLoaded', () => {
         // 3. Update Scale & Rotation (Scroll triggered)
         if (!prefersReducedMotion) {
             // Planet Scale ranges 0.9 (start) -> 1.0 (middle) -> 1.08 (end)
-            // Planet Tilt ranges 0deg (start) -> 15deg (middle) -> 40deg (end)
             if (progress <= 0.5) {
                 const t = progress / 0.5; // Normalized to 0-1
                 saturnState.planetScale = 0.9 + t * 0.08;
-                // saturnState.planetTilt = t * 15;
             } else {
                 const t = (progress - 0.5) / 0.5; // Normalized to 0-1
                 saturnState.planetScale = 1.0 + t * 0.08;
-                // saturnState.planetTilt = 15 + t * 25;
             }
-            saturnState.rotation += 0.004; // Continuous slow rotation
         } else {
             saturnState.planetScale = 1.0;
-            saturnState.planetTilt = 0;
         }
+
+        // Tilted left: wrapper is rotated by -25deg
+        saturnState.planetTilt = 23;
 
         // Apply dynamic scale and tilt
         saturnWrapper.style.transform = `translate(-50%, -50%) scale(${saturnState.planetScale}) rotate(${saturnState.planetTilt}deg)`;
 
-        // Continuous X-axis rotation of the planet texture (slides vertically)
+        // Continuous X-axis rotation of the planet texture (slides vertically) - frozen at current position
         if (!prefersReducedMotion) {
             const texture = planet.querySelector('.planet-texture');
             if (texture) {
-                // Shift vertically modulo 48px to loop seamlessly
+                // Shift vertically modulo 48px to loop seamlessly - static shift
                 const shift = (saturnState.rotation * 620) % 48;
                 texture.style.transform = `rotate(25deg) translateY(${shift}px)`;
             }
         }
 
-        // 4. Update Ring Oscillation & Spin Rotation
-        if (!prefersReducedMotion) {
-            saturnState.ringRotation += 0.015;
-            const ringTiltZ = 25 + Math.sin(saturnState.ringRotation) * 1.5; // Oscillates between 23.5deg and 26.5deg
-
-            // Calculate a continuous spin angle for the rings' conic gradient
-            saturnState.ringSpin = (saturnState.ringSpin || 0) + 0.4;
-
-            rings.forEach(ring => {
-                ring.style.setProperty('--ring-tilt-z', `${ringTiltZ}deg`);
-                ring.style.setProperty('--ring-spin', `${saturnState.ringSpin}deg`);
-            });
-        }
+        // 4. Update Ring Oscillation & Spin Rotation - frozen at current position
+        const ringTiltZ = 0; // Relative to the wrapper, making it parallel to the planet's bands (which are rotated by -25deg with the wrapper)
+        rings.forEach(ring => {
+            ring.style.setProperty('--ring-tilt-z', `${ringTiltZ}deg`);
+            ring.style.setProperty('--ring-spin', `0deg`);
+        });
 
         // 5. Move Moon Orbit (Projected 3D coordinates & relative z-index logic)
         // Timeline integration: Moon wakes up and orbits starting in middle phase (progress >= 0.35)
@@ -165,18 +156,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Sync orbit radius to planet bounding client rectangle width
             const planetRect = planet.getBoundingClientRect();
-            const orbitRadiusX = planetRect.width * 0.85;
-            const orbitRadiusY = planetRect.width * 0.85;
+            const orbitRadiusX = planetRect.width * 0.75;
+            const orbitRadiusY = planetRect.width * 0.75;
 
             const localX = Math.cos(saturnState.moonAngle) * orbitRadiusX;
             const localY = Math.sin(saturnState.moonAngle) * orbitRadiusY;
 
-            // Rotate locally on the ring tilt plane (-20deg Z, 75deg X tilt compression)
-            const tiltRad = -40 * Math.PI / 180;
-            let rx = localX * Math.cos(tiltRad) - localY * Math.sin(tiltRad);
-            let ry = (localX * Math.sin(tiltRad) + localY * Math.cos(tiltRad)) * Math.cos(85 * Math.PI / 180);
+            // Screen-space horizontal orbit (0deg tilt, 75deg vertical compression)
+            let screenX = localX;
+            let screenY = localY * Math.cos(75 * Math.PI / 180);
 
-            moon.style.transform = `translate(calc(-50% + ${rx}px), calc(-50% + ${ry}px)) scale(1)`;
+            // Rotate screen-space coordinates back to wrapper-space to cancel wrapper's -25deg tilt
+            const tiltRad = -saturnState.planetTilt * Math.PI / 180;
+            let rx = screenX * Math.cos(tiltRad) - screenY * Math.sin(tiltRad);
+            let ry = screenX * Math.sin(tiltRad) + screenY * Math.cos(tiltRad);
+
+            moon.style.transform = `translate(calc(-50% + ${rx}px), calc(-50% + ${ry}px)) scale(1) rotate(${-saturnState.planetTilt}deg)`;
 
             // Dynamically set Z-Index depending on orbit position relative to the sphere boundary
             if (Math.sin(saturnState.moonAngle) < 0) {
