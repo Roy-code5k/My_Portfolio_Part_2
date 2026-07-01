@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Generate straight vertical line path exactly from first dot to last dot
             let pathD = `M ${dots[0].x} ${dots[0].y}`;
             for (let i = 1; i < dots.length; i++) {
-                pathD += ` L ${dots[i].x} ${dots[i].y + 55}`;
+                pathD += ` L ${dots[i].x} ${dots[i].y + 35}`;
             }
 
             timelinePath.setAttribute('d', pathD);
