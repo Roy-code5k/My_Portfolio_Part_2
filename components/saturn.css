@@ -1,0 +1,220 @@
+/* === SATURN SYSTEM DESIGN SYSTEM === */
+
+.journey-space {
+    /* Responsive Variable Tokens */
+    --planet-size: clamp(260px, 30vw, 460px);
+    --ring-size: calc(var(--planet-size) * 2.0);
+    --ring-tilt-x: 75deg;
+    --ring-tilt-z: 25deg;
+    --glow-size: calc(var(--planet-size) * 1.6);
+    --moon-size: clamp(14px, 1.4vw, 20px);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    /* Background layer of the timeline */
+    overflow: hidden;
+}
+
+/* Stars Canvas Layer */
+.journey-stars-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    /* Sits behind back rings and planet */
+}
+
+/* Saturn Wrapper centering */
+.saturn-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    /* Base scale, will be updated by JS */
+    width: var(--ring-size);
+    height: var(--ring-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 1. Glow Layer */
+.glow {
+    position: absolute;
+    width: var(--glow-size);
+    height: var(--glow-size);
+    background: radial-gradient(circle,
+            rgba(255, 46, 99, 0.4) 0%,
+            rgba(159, 91, 140, 0.15) 50%,
+            transparent 70%);
+    filter: blur(60px);
+    opacity: 0.5;
+    z-index: 1;
+    /* Lowest inner Saturn layer */
+    border-radius: 50%;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* 2. Rings Layers */
+.ring {
+    position: absolute;
+    width: var(--ring-size);
+    height: var(--ring-size);
+    border-radius: 50%;
+    background: radial-gradient(circle,
+            transparent 0%,
+            transparent 34%,
+            rgba(255, 46, 99, 0.15) 36%,
+            rgba(255, 159, 28, 0.35) 42%,
+            rgba(255, 46, 99, 0.45) 48%,
+            transparent 49%,
+            transparent 52%,
+            rgba(255, 159, 28, 0.25) 53%,
+            rgba(255, 46, 99, 0.3) 58%,
+            transparent 59%);
+    /* 3D projection rotation */
+    transform: rotateX(var(--ring-tilt-x)) rotateZ(var(--ring-tilt-z));
+    pointer-events: none;
+    transform-origin: center;
+}
+
+/* Back ring sits behind planet sphere */
+.ring-back {
+    z-index: 3;
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+}
+
+/* Front ring sits in front of planet sphere */
+.ring-front {
+    z-index: 5;
+    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+}
+
+/* 3. Planet Sphere */
+.planet {
+    position: absolute;
+    width: var(--planet-size);
+    height: var(--planet-size);
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffd2e6 0%, #ff7ea2 20%, #ab3c6b 50%, #4a154b 80%, #15002b 100%);
+    overflow: hidden;
+    z-index: 4;
+    /* Layered exactly between front and back rings */
+    box-shadow:
+        0 0 40px rgba(255, 46, 99, 0.2),
+        inset -15px -15px 40px rgba(0, 0, 0, 0.7),
+        inset 15px 15px 30px rgba(255, 255, 255, 0.1);
+    transform-origin: center;
+}
+
+/* Planet lighting highlight */
+.planet-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    /* Highlight position mapped dynamically via CSS Variables set by JS */
+    background: radial-gradient(circle at var(--light-x, 30%) var(--light-y, 30%),
+            rgba(255, 255, 255, 0.45) 0%,
+            rgba(255, 255, 255, 0) 60%);
+    z-index: 4;
+}
+
+/* Planet Shadow depth mapping */
+.planet-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    /* Dark side shadow */
+    background: radial-gradient(circle at 75% 75%,
+            rgba(0, 0, 0, 0) 40%,
+            rgba(0, 0, 0, 0.7) 70%,
+            rgba(0, 0, 0, 0.95) 100%);
+    z-index: 3;
+}
+
+/* Gas Band Textures */
+.planet-texture {
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    opacity: 0.12;
+    z-index: 2;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 12px,
+            rgba(255, 255, 255, 0.2) 12px,
+            rgba(255, 255, 255, 0.2) 24px,
+            transparent 24px,
+            transparent 36px,
+            rgba(0, 0, 0, 0.3) 36px,
+            rgba(0, 0, 0, 0.3) 48px);
+    filter: blur(4px);
+    transform: rotate(25deg);
+}
+
+/* 4. Orbital Moon */
+.moon {
+    position: absolute;
+    width: var(--moon-size);
+    height: var(--moon-size);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #e0e0e8 0%, #9090a0 50%, #303040 100%);
+    box-shadow:
+        0 0 12px rgba(255, 255, 255, 0.3),
+        inset -2px -2px 5px rgba(0, 0, 0, 0.8);
+    /* Starting position out-of-bounds to prevent load blink */
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    z-index: 6;
+    /* High initial z-index, JS will update dynamically depending on orbit phase */
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.moon.active {
+    opacity: 1;
+}
+
+/* ==========================================================
+   ACCESSIBILITY: RESPECT REDUCED MOTION
+   ========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .saturn-wrapper {
+        transition: none !important;
+        transform: translate(-50%, -50%) scale(1) !important;
+    }
+
+    .glow {
+        animation: none !important;
+        opacity: 0.45 !important;
+    }
+
+    .moon {
+        animation: none !important;
+        opacity: 0 !important;
+        transform: scale(0) !important;
+    }
+
+    .planet-highlight {
+        background: radial-gradient(circle at 30% 30%,
+                rgba(255, 255, 255, 0.4) 0%,
+                rgba(255, 255, 255, 0) 60%) !important;
+    }
+}

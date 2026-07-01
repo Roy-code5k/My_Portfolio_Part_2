@@ -268,6 +268,9 @@ document.addEventListener('DOMContentLoaded', () => {
             currentDrawLength += (targetDrawLength - currentDrawLength) * 0.05;
             timelinePath.style.strokeDashoffset = pathLength - currentDrawLength;
 
+            // Expose draw progress globally for the Saturn system integration
+            window.timelineDrawProgress = pathLength > 0 ? (currentDrawLength / pathLength) : 0;
+
             // Use SVG geometry to find current draw coordinates (glowing tip of the line)
             const point = timelinePath.getPointAtLength(currentDrawLength);
 
