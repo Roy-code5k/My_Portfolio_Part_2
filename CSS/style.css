@@ -1005,9 +1005,11 @@ p {
     0% {
         transform: scale(0);
     }
+
     50% {
         transform: scale(1.6);
     }
+
     100% {
         transform: scale(1);
     }
@@ -1189,4 +1191,13 @@ button,
 .nav-links a,
 .btn {
     cursor: none !important;
+}
+
+
+.cursor-dot.cursor-click {
+    transform: translate(-50%, -50%) scale(.7);
+}
+
+.cursor-outline.cursor-click {
+    transform: translate(-50%, -50%) scale(1.45);
 }

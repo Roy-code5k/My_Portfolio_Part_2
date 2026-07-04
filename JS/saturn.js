@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+window.initSaturn = function () {
     // Check for prefers-reduced-motion configuration
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -253,4 +253,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Render Pipeline
     requestAnimationFrame(render);
-});
+};
