@@ -59,13 +59,27 @@ function setToggleEnabled(state) {
 
         toggle.addEventListener("click", startLoader);
 
-    }
+        document.addEventListener("keydown", handleKeyPress);
 
-    else {
+    } else {
 
         toggle.style.pointerEvents = "none";
 
         toggle.removeEventListener("click", startLoader);
+
+        document.removeEventListener("keydown", handleKeyPress);
+
+    }
+
+}
+
+function handleKeyPress(event) {
+
+    if (event.key === "Enter") {
+
+        event.preventDefault();
+
+        startLoader();
 
     }
 
@@ -93,7 +107,7 @@ robotTimeline
 
         x: -150,
 
-        fill: "#F26B6B"
+        fill: "#dac8c8ff" // white here
 
     })
 
@@ -127,7 +141,7 @@ robotTimeline
 
         x: 0,
 
-        fill: "#2BDB7F"
+        fill: " #ff4f87" // purple here
 
     }, "handIn")
 
@@ -244,8 +258,8 @@ function showSystemReady() {
         .to(
             loaderFlash,
             {
-                opacity: .55,
-                duration: .4,
+                opacity: 1,
+                duration: 1,
                 ease: "power2.out"
             },
             "-=.2"
@@ -255,9 +269,47 @@ function showSystemReady() {
             loaderFlash,
             {
                 opacity: 0,
-                duration: .45
+                duration: 0.7
             }
         )
+
+        /*
+/*
+=====================================
+Hide Robot & UI
+=====================================
+*/
+
+        .to(
+            ".loader-status",
+            {
+                opacity: 0,
+                y: -20,
+                duration: 0.35,
+                ease: "power2.inOut"
+            }
+        )
+
+        .to(
+            ".loader-robot",
+            {
+                opacity: 0,
+                scale: 0.92,
+                duration: 0.45,
+                ease: "power2.inOut"
+            },
+            "<"
+        )
+
+        /*
+        =====================================
+        Black Pause
+        =====================================
+        */
+
+        .to({}, {
+            duration: 0.18
+        })
 
         /*
         =====================================
@@ -269,7 +321,7 @@ function showSystemReady() {
             "#loader",
             {
                 "--split-line-opacity": 1,
-                duration: .15
+                duration: 0.18
             }
         )
 
@@ -285,8 +337,7 @@ function showSystemReady() {
                 yPercent: -100,
                 duration: 1,
                 ease: "power4.inOut"
-            },
-            "+=.15"
+            }
         )
 
         .to(
@@ -298,22 +349,6 @@ function showSystemReady() {
             },
             "<"
         )
-
-        /*
-        =====================================
-        Fade Loader Content
-        =====================================
-        */
-
-        .to(
-            ".loader-content",
-            {
-                opacity: 0,
-                duration: .35
-            },
-            "<"
-        )
-
         /*
         =====================================
         Remove Loading State
@@ -368,7 +403,13 @@ function showSystemReady() {
    START LOADER
 ============================================================ */
 
+let loaderStarted = false;
+
 function startLoader() {
+
+    if (loaderStarted) return;
+
+    loaderStarted = true;
 
     setToggleEnabled(false);
 
