@@ -56,7 +56,7 @@ window.initNameScramble = function () {
 
             iterations += 1 / 3;
 
-        }, 30);
+        }, 100);
 
     }
 
