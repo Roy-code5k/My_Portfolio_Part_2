@@ -2,42 +2,32 @@
 
 /* ── Fluid Type Scale (scoped to .fluid) ── */
 .scroll-hero.fluid {
-    --font-size-min: 14;
-    --font-size-max: 20;
+    --font-size-min: 24;
+    --font-size-max: 37;
     --font-ratio-min: 1.1;
     --font-ratio-max: 1.33;
     --font-width-min: 375;
     --font-width-max: 1500;
     --font-level: 4;
 
-    --fluid-min: calc(
-        var(--font-size-min) * pow(var(--font-ratio-min), var(--font-level, 0))
-    );
-    --fluid-max: calc(
-        var(--font-size-max) * pow(var(--font-ratio-max), var(--font-level, 0))
-    );
-    --fluid-preferred: calc(
-        (var(--fluid-max) - var(--fluid-min)) /
-        (var(--font-width-max) - var(--font-width-min))
-    );
-    --fluid-type: clamp(
-        (var(--fluid-min) / 16) * 1rem,
-        ((var(--fluid-min) / 16) * 1rem) -
-        (((var(--fluid-preferred) * var(--font-width-min)) / 16) * 1rem) +
-        (var(--fluid-preferred) * 100vi),
-        (var(--fluid-max) / 16) * 1rem
-    );
+    --fluid-min: calc(var(--font-size-min) * pow(var(--font-ratio-min), var(--font-level, 0)));
+    --fluid-max: calc(var(--font-size-max) * pow(var(--font-ratio-max), var(--font-level, 0)));
+    --fluid-preferred: calc((var(--fluid-max) - var(--fluid-min)) / (var(--font-width-max) - var(--font-width-min)));
+    --fluid-type: clamp((var(--fluid-min) / 16) * 1rem,
+            ((var(--fluid-min) / 16) * 1rem) - (((var(--fluid-preferred) * var(--font-width-min)) / 16) * 1rem) + (var(--fluid-preferred) * 100vi),
+            (var(--fluid-max) / 16) * 1rem);
     font-size: var(--fluid-type);
 }
 
 /* ── Sticky Header Container ── */
 .scroll-hero {
     --start: 50vh;
-    --space: 50vh;
-    --accent: var(--accent-pink);
+    --space: 35vh;
 
     position: sticky;
     top: calc((var(--count) - 1) * -1lh);
+    margin-top: -25vh;
+    margin-left: 7vh;
     line-height: 1.2;
     display: flex;
     align-items: flex-start;
@@ -72,26 +62,21 @@
 .scroll-hero-content ul {
     font-weight: 600;
     padding-inline: 0;
+    padding-bottom: 2vh;
     margin: 0;
     list-style-type: none;
     font-family: var(--font-heading);
 }
 
-/* ── Individual Word Items ── */
+/* ── Individual Word Items (class-based coloring) ── */
 .scroll-hero-content li {
-    --dimmed: color-mix(in oklch, #ffffff, #0000 80%);
+    color: rgba(255, 255, 255, 0.15);
+    transition: color 0.4s ease;
+}
 
-    background: linear-gradient(
-        180deg,
-        var(--dimmed) 0 calc(var(--start) - 0.5lh),
-        var(--accent) calc(var(--start) - 0.55lh) calc(var(--start) + 0.55lh),
-        var(--dimmed) calc(var(--start) + 0.5lh)
-    );
-    background-attachment: fixed;
-    color: #0000;
-    background-clip: text;
-    -webkit-background-clip: text;
-    scroll-snap-align: center;
+/* Only the active word gets the accent color */
+.scroll-hero-content li.active {
+    color: var(--accent-pink);
 }
 
 /* ── Screen-reader Only Utility ── */
