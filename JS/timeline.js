@@ -50,6 +50,9 @@ window.initTimeline = function () {
 
     timelineItems.forEach(item => observer.observe(item));
 
+    const projectCards = document.querySelectorAll(".project-card");
+    projectCards.forEach(card => observer.observe(card));
+
     /* ===========================================
        DRAW SVG PATH
     =========================================== */
@@ -89,7 +92,7 @@ window.initTimeline = function () {
 
         for (let i = 1; i < dots.length; i++) {
 
-            path += ` L ${dots[i].x} ${dots[i].y + 35}`;
+            path += ` L ${dots[i].x} ${dots[i].y + 3}`;
 
         }
 
