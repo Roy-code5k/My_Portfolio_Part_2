@@ -10,7 +10,6 @@
    the token server-side.
 ========================================== */
 
-const GH_TOKEN = "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";
 const GH_USER = "Roy-code5k";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -71,11 +70,10 @@ async function fetchGitHubData() {
     }
 }
 
-/* ── REST helper ── */
+/* ── REST helper (unauthenticated) ── */
 async function fetchREST(url) {
     const res = await fetch(url, {
         headers: {
-            "Authorization": `Bearer ${GH_TOKEN}`,
             "Accept": "application/vnd.github+json"
         }
     });
@@ -98,54 +96,40 @@ async function fetchAllRepos() {
     return all;
 }
 
-/* ── GraphQL: contribution calendar ── */
+/* ── Fetch contribution calendar (using a tokenless public API) ── */
 async function fetchContributions() {
-    const now = new Date();
-    const from = new Date(now.getFullYear(), 0, 1).toISOString();
-    const to = now.toISOString();
+    const res = await fetch(`https://github-contributions-api.deno.dev/${GH_USER}.json`);
+    if (!res.ok) throw new Error(`Contributions API ${res.status}`);
+    const data = await res.json();
 
-    const query = `
-        query($login: String!, $from: DateTime!, $to: DateTime!) {
-            user(login: $login) {
-                contributionsCollection(from: $from, to: $to) {
-                    contributionCalendar {
-                        totalContributions
-                        weeks {
-                            contributionDays {
-                                contributionCount
-                                date
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    `;
+    // Filter contributions for the current year
+    const currentYear = new Date().getFullYear().toString();
+    const currentYearTotal = data.total[currentYear] || 0;
 
-    const res = await fetch("https://api.github.com/graphql", {
-        method: "POST",
-        headers: {
-            "Authorization": `Bearer ${GH_TOKEN}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            query,
-            variables: { login: GH_USER, from, to }
-        })
+    const currentYearDays = data.contributions.filter(day => {
+        return day.date.startsWith(currentYear);
     });
 
-    if (!res.ok) throw new Error(`GraphQL ${res.status}`);
-    const json = await res.json();
+    // Group days into weeks starting on Sunday (day 0) and ending on Saturday (day 6)
+    const weeks = [];
+    let currentWeek = { contributionDays: [] };
 
-    if (json.errors) {
-        console.warn("GraphQL errors:", json.errors);
-        throw new Error(json.errors[0].message);
-    }
+    currentYearDays.forEach((day, index) => {
+        currentWeek.contributionDays.push({
+            contributionCount: day.count,
+            date: day.date
+        });
 
-    const cal = json.data.user.contributionsCollection.contributionCalendar;
+        const dateObj = new Date(day.date);
+        if (dateObj.getDay() === 6 || index === currentYearDays.length - 1) {
+            weeks.push(currentWeek);
+            currentWeek = { contributionDays: [] };
+        }
+    });
+
     return {
-        totalContributions: cal.totalContributions,
-        weeks: cal.weeks
+        totalContributions: currentYearTotal,
+        weeks: weeks
     };
 }
 
