@@ -1,15 +1,9 @@
 /* ==========================================
    GITHUB CONTRIBUTIONS
    Fetches user stats & contribution heatmap
-   from GitHub REST + GraphQL APIs.
-
-   ⚠ SECURITY NOTE:
-   This token is embedded in client-side JS.
-   For production, use a serverless proxy
-   (e.g., Vercel/Netlify function) to keep
-   the token server-side.
-========================================== */
-
+   via a secure serverless Vercel proxy.
+   ========================================== */
+const GH_TOKEN = ""; // Add your token here only for local development (do not commit it)
 
 const GH_USER = "Roy-code5k";
 
@@ -31,38 +25,52 @@ async function fetchGitHubData() {
         const cachedDate = localStorage.getItem(cacheDateKey);
         const todayDate = new Date().toDateString(); // e.g., "Wed Jul 08 2026"
 
-        let userData, reposData, contribData;
+        let data;
 
         if (cachedData && cachedDate === todayDate) {
             // Use cached data for today
-            const parsedData = JSON.parse(cachedData);
-            userData = parsedData.userData;
-            reposData = parsedData.reposData;
-            contribData = parsedData.contribData;
+            data = JSON.parse(cachedData);
         } else {
             // Fetch fresh data for a new day
-            [userData, reposData, contribData] = await Promise.all([
-                fetchREST(`https://api.github.com/users/${GH_USER}`),
-                fetchAllRepos(),
-                fetchContributions()
-            ]);
+            try {
+                const res = await fetch("/api/github");
+                if (!res.ok) throw new Error(`Proxy status: ${res.status}`);
+                data = await res.json();
+            } catch (proxyErr) {
+                console.warn("Proxy API unavailable. Falling back to local direct fetches...", proxyErr);
+                
+                // Fallback direct fetches if GH_TOKEN is configured in local development
+                if (typeof GH_TOKEN !== 'undefined' && GH_TOKEN) {
+                    const [userData, reposData, contribData] = await Promise.all([
+                        fetchREST(`https://api.github.com/users/${GH_USER}`),
+                        fetchAllRepos(),
+                        fetchContributions()
+                    ]);
+                    
+                    data = {
+                        public_repos: userData.public_repos || 0,
+                        totalStars: reposData.reduce((sum, r) => sum + (r.stargazers_count || 0), 0),
+                        totalContributions: contribData?.totalContributions || 0,
+                        weeks: contribData?.weeks || []
+                    };
+                } else {
+                    throw new Error("Vercel proxy failed and no local token is configured.");
+                }
+            }
 
             // Save to cache
-            localStorage.setItem(cacheKey, JSON.stringify({ userData, reposData, contribData }));
+            localStorage.setItem(cacheKey, JSON.stringify(data));
             localStorage.setItem(cacheDateKey, todayDate);
         }
 
         /* Stats */
-        const totalStars = reposData.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
-        const totalContribs = contribData?.totalContributions || 0;
-
-        renderStat("gh-repos-count", userData.public_repos || 0);
-        renderStat("gh-contributions-count", totalContribs);
+        renderStat("gh-repos-count", data.public_repos || 0);
+        renderStat("gh-contributions-count", data.totalContributions || 0);
         renderStat("gh-commits-count", 673);
-        renderStat("gh-stars-count", totalStars);
+        renderStat("gh-stars-count", data.totalStars || 0);
 
         /* Heatmap */
-        const weeks = contribData?.weeks || [];
+        const weeks = data.weeks || [];
         renderHeatmap(weeks);
 
     } catch (err) {
@@ -71,7 +79,7 @@ async function fetchGitHubData() {
     }
 }
 
-/* ── REST helper ── */
+/* ── REST helper (Fallback) ── */
 async function fetchREST(url) {
     const res = await fetch(url, {
         headers: {
@@ -83,7 +91,7 @@ async function fetchREST(url) {
     return res.json();
 }
 
-/* ── Fetch all repos (paginated) ── */
+/* ── Fetch all repos (Fallback) ── */
 async function fetchAllRepos() {
     let page = 1;
     let all = [];
@@ -98,7 +106,7 @@ async function fetchAllRepos() {
     return all;
 }
 
-/* ── GraphQL: contribution calendar ── */
+/* ── GraphQL: contribution calendar (Fallback) ── */
 async function fetchContributions() {
     const now = new Date();
     const from = new Date(now.getFullYear(), 0, 1).toISOString();
