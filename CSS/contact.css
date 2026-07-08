@@ -1,0 +1,328 @@
+@import url('https://fonts.googleapis.com/css2?family=Mr+De+Haviland&display=swap');
+
+.contact-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8rem 0 2rem 0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Background Blobs for Contact Section */
+.contact-blobs {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+
+}
+
+.contact-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.6;
+}
+
+.contact-blob-1 {
+    top: 10%;
+    right: -10%;
+    width: 380px;
+    height: 380px;
+    background: var(--accent-purple);
+}
+
+.contact-blob-2 {
+    bottom: 5%;
+    left: -10%;
+    width: 350px;
+    height: 350px;
+    background: var(--accent-pink);
+}
+
+/* Section Header */
+.contact-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-title {
+    font-family: var(--font-heading);
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.5px;
+}
+
+.contact-subtitle {
+    font-size: 1.15rem;
+    color: var(--accent-orange);
+    letter-spacing: 0.5px;
+    font-style: italic;
+}
+
+/* Contact Grid Layout - Centered Flex */
+.contact-grid {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+/* Centered Glassmorphic Contact Card */
+.contact-card {
+    background: rgba(24, 24, 27, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius);
+    padding: 3.5rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 680px;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.contact-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(108, 27, 249, 0.15);
+}
+
+/* Contact Form Input Fields (Enlarged) */
+.form-group {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.form-group label {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.form-group input,
+.form-group textarea {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.1rem 1.3rem;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 15px rgba(255, 46, 99, 0.2);
+}
+
+.form-group textarea {
+    resize: none;
+}
+
+/* Submit Button & WhatsApp Button (Enlarged) */
+.form-submit-btn,
+.btn-whatsapp {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 1.1rem 1.5rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+/* Divider (OR) */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 2.2rem 0;
+    color: var(--text-muted);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 2px;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.divider:not(:empty)::before {
+    margin-right: 1.5rem;
+}
+
+.divider:not(:empty)::after {
+    margin-left: 1.5rem;
+}
+
+.btn-whatsapp {
+    background: rgba(37, 211, 102, 0.1);
+    color: #25D366;
+    border: 1px solid rgba(37, 211, 102, 0.3);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.15);
+    text-decoration: none;
+}
+
+.btn-whatsapp:hover {
+    background: #25D366;
+    color: #0f0f11;
+    border-color: #25D366;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+}
+
+/* Success Message Styling */
+.success-message {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    background: rgba(46, 255, 116, 0.05);
+    color: #2eff74;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(46, 255, 116, 0.2);
+    margin-bottom: 2rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.success-message.show {
+    display: flex;
+}
+
+/* ===== FOOTER ===== */
+.main-footer {
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2.5rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.main-footer p {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+
+
+
+/* Signature Container & Text */
+.signature-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    user-select: none;
+    pointer-events: none;
+}
+
+.signature-text {
+    font-family: 'Mr De Haviland', cursive;
+    font-size: 5.5rem;
+    color: #ffffff;
+    font-weight: 400;
+    /* White hot pen glow */
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.95),
+        0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 35px rgba(255, 255, 255, 0.3);
+    /* Realistic signature tilt */
+    transform: rotate(-6deg);
+    display: inline-block;
+    letter-spacing: -2px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.sig-initial {
+    margin-right: -0.1em;
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+}
+
+.sig-surname {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+}
+
+.signature-text::after {
+    content: '';
+    position: absolute;
+    bottom: 50px;
+    left: -15%;
+    right: -15%;
+    height: 3px;
+    background: #ffffff;
+    /* Tapered pen stroke look */
+    border-radius: 50%;
+    box-shadow:
+        0 0 8px rgba(255, 255, 255, 0.95),
+        0 0 15px rgba(255, 255, 255, 0.5);
+    /* Natural upward swipe */
+    transform: rotate(-3deg);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .contact-section {
+        padding: 4rem 0 6rem 0;
+    }
+
+    .contact-title {
+        font-size: 2.2rem;
+    }
+
+    .contact-card,
+    .connect-card {
+        padding: 2rem;
+    }
+
+    .signature-text {
+        font-size: 4.5rem;
+    }
+}

@@ -68,7 +68,7 @@
 
 .github-subtitle {
     font-size: 1rem;
-    color: var(--text-muted);
+    color: var(--accent-orange);
     letter-spacing: 0.5px;
     font-style: italic;
 }

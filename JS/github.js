@@ -10,7 +10,7 @@
    the token server-side.
 ========================================== */
 
-//const GH_TOKEN = "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";//
+const GH_TOKEN = "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";
 const GH_USER = "Roy-code5k";
 
 document.addEventListener("DOMContentLoaded", () => {

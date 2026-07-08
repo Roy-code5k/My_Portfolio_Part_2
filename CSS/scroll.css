@@ -19,20 +19,27 @@
     font-size: var(--fluid-type);
 }
 
+/* ── Sticky Container Wrapper (Containment) ── */
+.scroll-hero-wrapper {
+    position: relative;
+    width: 100%;
+    height: 160vh;
+    /* Runway height for the 7 words to scroll before scrolling away */
+    margin-top: -25vh;
+    margin-bottom: 12rem;
+}
+
 /* ── Sticky Header Container ── */
 .scroll-hero {
     --start: 50vh;
-    --space: 35vh;
 
     position: sticky;
     top: calc((var(--count) - 1) * -1lh);
-    margin-top: -25vh;
     margin-left: 7vh;
     line-height: 1.2;
     display: flex;
     align-items: flex-start;
     width: 100%;
-    margin-bottom: var(--space);
     font-family: var(--font-heading);
 }
 
@@ -62,7 +69,7 @@
 .scroll-hero-content ul {
     font-weight: 600;
     padding-inline: 0;
-    padding-bottom: 2vh;
+    padding-bottom: 0vh;
     margin: 0;
     list-style-type: none;
     font-family: var(--font-heading);

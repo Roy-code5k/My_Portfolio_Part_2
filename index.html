@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="CSS/flagship.css">
     <link rel="stylesheet" href="CSS/scroll.css">
     <link rel="stylesheet" href="CSS/github.css">
+    <link rel="stylesheet" href="CSS/contact.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -177,7 +178,7 @@
 
                 <span id="loader-status-text">
 
-                    Press Enter to Begin
+                    Press Enter to Proceed
 
                 </span>
 
@@ -244,9 +245,12 @@
                     <h1 id="header-name"><span id="name-text">Hrituraj</span> <span class="gradient-text"
                             id="surname-text">Roy</span></h1>
                     <h2>Creative Full Stack Developer</h2>
-                    <p>First-year student at <strong>Polaris School of Technology</strong>. I blend code with creativity
-                        to
-                        build robust web solutions.</p>
+                    <p>A Full Stack Developer with hands-on experience in building and deploying web applications.
+                        Skilled in
+                        MERN
+                        stack and Django, and other third-party integrations.
+                        Passionate about
+                        building user-focused solutions and contributing to impactful engineering teams.</p>
                     <div class="intro-actions">
                         <a href="HTML/contact.html" class="btn btn-primary">Hire Me</a>
                     </div>
@@ -536,24 +540,90 @@
         </section>
 
         <!-- Scrolling "I am a" Hero Section -->
-        <header class="scroll-hero fluid" style="--count: 6">
-            <section class="scroll-hero-content">
-                <h1>
-                    <span aria-hidden="true">I am a&nbsp;</span>
-                    <span class="sr-only">I am a Developer.</span>
-                </h1>
-                <ul aria-hidden="true">
-                    <li class="hero-item" style="--i: 0">Developer.</li>
-                    <li class="hero-item" style="--i: 1">Engineer.</li>
-                    <li class="hero-item" style="--i: 2">Innovator.</li>
-                    <li class="hero-item" style="--i: 3">Learner.</li>
-                    <li class="hero-item" style="--i: 4">Athlete.</li>
-                    <li class="hero-item" style="--i: 5">Leader.</li>
-                    <li class="hero-item" style="--i: 6">Cadet.</li>
-                </ul>
-            </section>
-        </header>
+        <div class="scroll-hero-wrapper">
+            <header class="scroll-hero fluid" style="--count: 7">
+                <section class="scroll-hero-content">
+                    <h1>
+                        <span aria-hidden="true">I am a&nbsp;</span>
+                        <span class="sr-only">I am a Developer.</span>
+                    </h1>
+                    <ul aria-hidden="true">
+                        <li class="hero-item" style="--i: 0">Developer.</li>
+                        <li class="hero-item" style="--i: 1">Engineer.</li>
+                        <li class="hero-item" style="--i: 2">Innovator.</li>
+                        <li class="hero-item" style="--i: 3">Learner.</li>
+                        <li class="hero-item" style="--i: 4">Athlete.</li>
+                        <li class="hero-item" style="--i: 5">Leader.</li>
+                        <li class="hero-item" style="--i: 6">Cadet.</li>
+                    </ul>
+                </section>
+            </header>
+        </div>
 
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="contact-blobs">
+                <div class="contact-blob contact-blob-1"></div>
+                <div class="contact-blob contact-blob-2"></div>
+            </div>
+
+            <div class="contact-header">
+                <h2 class="contact-title">Let's <span class="gradient-text">Connect</span></h2>
+                <p class="contact-subtitle">Have a project in mind? Drop me a line or message me directly!</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Contact Form Card -->
+                <div class="contact-card">
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-check-circle"></i>
+                        Message sent successfully! I'll get back to you soon.
+                    </div>
+
+                    <form action="https://formspree.io/f/mwvvorlk" method="POST" id="mainContactForm">
+                        <div class="form-group">
+                            <label for="contact-name">Your Name</label>
+                            <input type="text" id="contact-name" name="name" required placeholder="John Doe">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-email">Email Address</label>
+                            <input type="email" id="contact-email" name="email" required placeholder="john@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" name="message" required placeholder="How can I help you?"
+                                rows="5"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary form-submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+
+                    <div class="divider">
+                        <span>OR</span>
+                    </div>
+
+                    <a href="https://wa.me/916295852503?text=Hi%20Hrituraj%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%20you."
+                        target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Message on WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Signature -->
+            <div class="signature-container">
+                <span class="signature-text"><span class="sig-initial">H</span><span
+                        class="sig-surname">Roy</span></span>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <p>&copy; 2026 Hrituraj Roy. All rights reserved.</p>
+        </footer>
 
 
         <!-- Social Icons - Left Edge -->
@@ -599,6 +669,8 @@
         <script src="JS/scroll.js"></script>
 
         <script src="JS/github.js"></script>
+
+        <script src="JS/contact.js"></script>
 
 
 </body>
