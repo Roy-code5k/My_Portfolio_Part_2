@@ -1,0 +1,93 @@
+/* ===== SCROLL HERO — "I am a ___" ===== */
+
+/* ── Fluid Type Scale (scoped to .fluid) ── */
+.scroll-hero.fluid {
+    --font-size-min: 24;
+    --font-size-max: 37;
+    --font-ratio-min: 1.1;
+    --font-ratio-max: 1.33;
+    --font-width-min: 375;
+    --font-width-max: 1500;
+    --font-level: 4;
+
+    --fluid-min: calc(var(--font-size-min) * pow(var(--font-ratio-min), var(--font-level, 0)));
+    --fluid-max: calc(var(--font-size-max) * pow(var(--font-ratio-max), var(--font-level, 0)));
+    --fluid-preferred: calc((var(--fluid-max) - var(--fluid-min)) / (var(--font-width-max) - var(--font-width-min)));
+    --fluid-type: clamp((var(--fluid-min) / 16) * 1rem,
+            ((var(--fluid-min) / 16) * 1rem) - (((var(--fluid-preferred) * var(--font-width-min)) / 16) * 1rem) + (var(--fluid-preferred) * 100vi),
+            (var(--fluid-max) / 16) * 1rem);
+    font-size: var(--fluid-type);
+}
+
+/* ── Sticky Header Container ── */
+.scroll-hero {
+    --start: 50vh;
+    --space: 35vh;
+
+    position: sticky;
+    top: calc((var(--count) - 1) * -1lh);
+    margin-top: -25vh;
+    margin-left: 7vh;
+    line-height: 1.2;
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: var(--space);
+    font-family: var(--font-heading);
+}
+
+/* ── Inner Content Wrapper ── */
+.scroll-hero-content {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: calc(var(--start) - 0.5lh);
+}
+
+/* ── Fixed "I am a" Label ── */
+.scroll-hero-content h1 {
+    position: sticky;
+    top: calc(var(--start) - 0.5lh);
+    font-size: inherit;
+    margin: 0;
+    display: inline-block;
+    height: fit-content;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+}
+
+/* ── Scrolling Word List ── */
+.scroll-hero-content ul {
+    font-weight: 600;
+    padding-inline: 0;
+    padding-bottom: 2vh;
+    margin: 0;
+    list-style-type: none;
+    font-family: var(--font-heading);
+}
+
+/* ── Individual Word Items (class-based coloring) ── */
+.scroll-hero-content li {
+    color: rgba(255, 255, 255, 0.15);
+    transition: color 0.4s ease;
+}
+
+/* Only the active word gets the accent color */
+.scroll-hero-content li.active {
+    color: var(--accent-pink);
+}
+
+/* ── Screen-reader Only Utility ── */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}

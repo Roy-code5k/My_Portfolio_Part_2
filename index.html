@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="CSS/saturn.css">
     <link rel="stylesheet" href="CSS/loader.css">
     <link rel="stylesheet" href="CSS/flagship.css">
+    <link rel="stylesheet" href="CSS/scroll.css">
+    <link rel="stylesheet" href="CSS/github.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -472,6 +474,84 @@
             </div>
         </section>
 
+        <!-- GitHub Contributions Section -->
+        <section class="github-section" id="github">
+            <div class="github-blobs">
+                <div class="github-blob github-blob-1"></div>
+                <div class="github-blob github-blob-3"></div>
+                <div class="github-blob github-blob-2"></div>
+            </div>
+            <div class="github-header">
+                <h2 class="github-title">GitHub <span class="gradient-text">Contribution</span></h2>
+                <p class="github-subtitle">"Consistency is the key to mastery"</p>
+            </div>
+            <div class="github-stats-grid">
+                <div class="github-stat-card">
+                    <div class="stat-icon"><i class="fas fa-code-branch"></i></div>
+                    <div class="stat-value" id="gh-repos-count">—</div>
+                    <div class="stat-label">Repositories</div>
+                </div>
+                <div class="github-stat-card">
+                    <div class="stat-icon"><i class="fas fa-fire"></i></div>
+                    <div class="stat-value" id="gh-contributions-count">—</div>
+                    <div class="stat-label">Contributions</div>
+                </div>
+                <div class="github-stat-card">
+                    <div class="stat-icon"><i class="fas fa-history"></i></div>
+                    <div class="stat-value" id="gh-commits-count">—</div>
+                    <div class="stat-label">Total Commits</div>
+                </div>
+                <div class="github-stat-card">
+                    <div class="stat-icon"><i class="fas fa-star"></i></div>
+                    <div class="stat-value" id="gh-stars-count">—</div>
+                    <div class="stat-label">Total Stars</div>
+                </div>
+            </div>
+            <div class="github-heatmap-card">
+                <div class="heatmap-header">
+                    <h3>Contribution Heatmap</h3>
+                    <span class="heatmap-year" id="gh-heatmap-year"></span>
+                </div>
+                <div id="gh-heatmap">
+                    <div class="github-loading">
+                        <div class="spinner"></div>
+                        Loading contributions...
+                    </div>
+                </div>
+                <div class="heatmap-legend">
+                    <span class="legend-label">Less</span>
+                    <div class="legend-squares">
+                        <div class="legend-square" data-level="0"></div>
+                        <div class="legend-square" data-level="1"></div>
+                        <div class="legend-square" data-level="2"></div>
+                        <div class="legend-square" data-level="3"></div>
+                        <div class="legend-square" data-level="4"></div>
+                    </div>
+                    <span class="legend-label">More</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scrolling "I am a" Hero Section -->
+        <header class="scroll-hero fluid" style="--count: 6">
+            <section class="scroll-hero-content">
+                <h1>
+                    <span aria-hidden="true">I am a&nbsp;</span>
+                    <span class="sr-only">I am a Developer.</span>
+                </h1>
+                <ul aria-hidden="true">
+                    <li class="hero-item" style="--i: 0">Developer.</li>
+                    <li class="hero-item" style="--i: 1">Engineer.</li>
+                    <li class="hero-item" style="--i: 2">Innovator.</li>
+                    <li class="hero-item" style="--i: 3">Learner.</li>
+                    <li class="hero-item" style="--i: 4">Athlete.</li>
+                    <li class="hero-item" style="--i: 5">Leader.</li>
+                    <li class="hero-item" style="--i: 6">Cadet.</li>
+                </ul>
+            </section>
+        </header>
+
+
 
 
         <!-- Social Icons - Left Edge -->
@@ -513,6 +593,10 @@
         <script src="JS/portfolio.js"></script>
 
         <script src="JS/loader.js"></script>
+
+        <script src="JS/scroll.js"></script>
+
+        <script src="JS/github.js"></script>
 
 
 </body>

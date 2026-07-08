@@ -6,6 +6,7 @@
     --text-muted: #c4c4cc;
     --accent-pink: #FF2E63;
     --accent-orange: #FF9F1C;
+    --accent-purple: #6C1BF9;
     --gradient-text: linear-gradient(135deg, var(--accent-pink), var(--accent-orange));
 
     --font-heading: 'Outfit', sans-serif;

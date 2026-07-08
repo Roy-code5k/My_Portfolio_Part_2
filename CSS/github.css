@@ -1,0 +1,411 @@
+.github-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 0 5rem 0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Background Blobs */
+.github-blobs {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+
+}
+
+.github-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: .95;
+}
+
+.github-blob-1 {
+    top: 5%;
+    left: -5%;
+    width: 360px;
+    height: 360px;
+    background: var(--accent-pink);
+}
+
+.github-blob-3 {
+    top: 60%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 350px;
+    background: var(--accent-orange);
+}
+
+.github-blob-2 {
+    bottom: 5%;
+    right: -5%;
+    width: 380px;
+    height: 380px;
+    background: var(--accent-purple);
+}
+
+
+/* ── Section Header ── */
+.github-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
+.github-title {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.5px;
+}
+
+.github-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    font-style: italic;
+}
+
+/* ── Stats Grid (4 horizontal cards) ── */
+.github-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.github-stat-card {
+    background: rgba(24, 24, 27, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+}
+
+.github-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient-text);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.github-stat-card:hover {
+    background: rgba(24, 24, 27, 0.85);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.5),
+        0 0 24px rgba(255, 46, 99, 0.08);
+}
+
+.github-stat-card:hover::before {
+    opacity: 1;
+}
+
+.stat-icon {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.stat-value {
+    font-family: var(--font-heading);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+}
+
+/* ── Heatmap Card ── */
+.github-heatmap-card {
+    background: rgba(24, 24, 27, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius);
+    padding: 2rem;
+    backdrop-filter: blur(12px);
+    transition: all 0.4s ease;
+    overflow: visible;
+    position: relative;
+    z-index: 1;
+}
+
+.github-heatmap-card:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.heatmap-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.heatmap-header h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.heatmap-year {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* ── Month Labels Row ── */
+.heatmap-months {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 6px;
+    padding-left: 32px;
+}
+
+.heatmap-month-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ── Heatmap Grid ── */
+.heatmap-body {
+    display: flex;
+    gap: 0;
+}
+
+.heatmap-day-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-right: 8px;
+    padding-top: 0;
+}
+
+.heatmap-day-label {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    height: 13px;
+    line-height: 13px;
+    text-align: right;
+    min-width: 24px;
+}
+
+.heatmap-grid {
+    display: flex;
+    gap: 3px;
+    flex: 1;
+    overflow: visible;
+}
+
+.heatmap-week {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.heatmap-day {
+    width: 13px;
+    height: 13px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.heatmap-day:hover {
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+    outline-offset: 1px;
+    z-index: 2;
+}
+
+/* Contribution Levels */
+.heatmap-day[data-level="0"] {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.heatmap-day[data-level="1"] {
+    background: rgba(255, 46, 99, 0.25);
+}
+
+.heatmap-day[data-level="2"] {
+    background: rgba(255, 46, 99, 0.5);
+}
+
+.heatmap-day[data-level="3"] {
+    background: rgba(255, 100, 60, 0.7);
+}
+
+.heatmap-day[data-level="4"] {
+    background: rgba(255, 159, 28, 0.9);
+}
+
+/* ── Tooltip (appears below the square) ── */
+.heatmap-day .heatmap-tooltip {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e1e22;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 0.7rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.heatmap-day .heatmap-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-bottom-color: #1e1e22;
+}
+
+.heatmap-day:hover .heatmap-tooltip {
+    display: block;
+}
+
+.tooltip-count {
+    font-weight: 700;
+    color: var(--accent-pink);
+}
+
+/* ── Legend ── */
+.heatmap-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 1rem;
+}
+
+.legend-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.legend-squares {
+    display: flex;
+    gap: 3px;
+}
+
+.legend-square {
+    width: 13px;
+    height: 13px;
+    border-radius: 3px;
+}
+
+.legend-square[data-level="0"] {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.legend-square[data-level="1"] {
+    background: rgba(255, 46, 99, 0.25);
+}
+
+.legend-square[data-level="2"] {
+    background: rgba(255, 46, 99, 0.5);
+}
+
+.legend-square[data-level="3"] {
+    background: rgba(255, 100, 60, 0.7);
+}
+
+.legend-square[data-level="4"] {
+    background: rgba(255, 159, 28, 0.9);
+}
+
+/* ── Loading State ── */
+.github-loading {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.github-loading .spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--accent-pink);
+    border-radius: 50%;
+    animation: gh-spin 0.8s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes gh-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── Responsive ── */
+@media (max-width: 992px) {
+    .github-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .github-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .github-title {
+        font-size: 2.2rem;
+    }
+
+    .github-heatmap-card {
+        padding: 1.25rem;
+    }
+
+    .heatmap-day {
+        width: 10px;
+        height: 10px;
+    }
+
+    .heatmap-day-labels {
+        display: none;
+    }
+}
