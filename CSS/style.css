@@ -400,7 +400,7 @@ body {
 }
 
 .blob-1 {
-    top: 200px;
+    top: 280px;
     left: 30%;
     width: 350px;
     height: 350px;
@@ -410,8 +410,8 @@ body {
 
 
 .blob-3 {
-    top: 500px;
-    left: 45%;
+    top: 450px;
+    left: 50%;
     width: 360px;
     height: 360px;
     background: #6C1BF9;
@@ -419,10 +419,10 @@ body {
 }
 
 .blob-4 {
-    top: 350px;
-    right: 35%;
-    width: 320px;
-    height: 320px;
+    top: 290px;
+    right: 27%;
+    width: 350px;
+    height: 350px;
     background: #FF2E63;
     transform: translate(50%, -50%);
 }
@@ -489,13 +489,15 @@ body {
 
 /* Tile Basics */
 .bento-tile {
-    background: var(--card-bg);
+    background: rgba(24, 24, 27, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius);
     padding: 2rem;
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     flex-direction: column;
     opacity: 0;
@@ -506,9 +508,9 @@ body {
 
 .bento-tile:hover {
     transform: translateY(-5px) rotateX(2deg) rotateY(-2deg);
-    background: var(--card-hover);
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 46, 99, 0.1);
+    background: rgba(24, 24, 27, 0.65);
+    border-color: rgba(255, 46, 99, 0.4);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 46, 99, 0.15);
 }
 
 /* Typography */
@@ -609,21 +611,9 @@ p {
 .tile-intro {
     grid-column: span 2;
     grid-row: span 2;
-    background: rgba(24, 24, 27, 0.4);
-    /*linear-gradient(135deg, rgba(255, 159, 28, 0.1), rgba(255, 46, 99, 0.05));*/
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.05);
     justify-content: center;
     align-items: flex-start;
     text-align: left;
-    transition: all 0.4s ease;
-}
-
-.tile-intro:hover {
-    background: rgba(24, 24, 27, 0.6);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 20px rgba(255, 46, 99, 0.2), 0 5px 15px rgba(0, 0, 0, 0.3);
-    transform: translateY(-5px) scale(1.01);
 }
 
 
@@ -706,7 +696,6 @@ p {
     justify-content: flex-start;
     position: relative;
     padding-top: 1.5rem;
-    background: radial-gradient(circle at top left, #1f1f24, #0a0a0c);
 }
 
 .tile-stack h3 {
@@ -848,7 +837,6 @@ p {
 .tile-athlete {
     grid-column: span 1;
     grid-row: span 2;
-    background: radial-gradient(circle at top left, #1f1f24, #0a0a0c);
     display: flex;
     flex-direction: column;
 }
