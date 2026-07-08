@@ -10,6 +10,7 @@
    the token server-side.
 ========================================== */
 
+
 const GH_USER = "Roy-code5k";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -70,10 +71,11 @@ async function fetchGitHubData() {
     }
 }
 
-/* ── REST helper (unauthenticated) ── */
+/* ── REST helper ── */
 async function fetchREST(url) {
     const res = await fetch(url, {
         headers: {
+            "Authorization": `Bearer ${GH_TOKEN}`,
             "Accept": "application/vnd.github+json"
         }
     });
@@ -96,40 +98,54 @@ async function fetchAllRepos() {
     return all;
 }
 
-/* ── Fetch contribution calendar (using a tokenless public API) ── */
+/* ── GraphQL: contribution calendar ── */
 async function fetchContributions() {
-    const res = await fetch(`https://github-contributions-api.deno.dev/${GH_USER}.json`);
-    if (!res.ok) throw new Error(`Contributions API ${res.status}`);
-    const data = await res.json();
+    const now = new Date();
+    const from = new Date(now.getFullYear(), 0, 1).toISOString();
+    const to = now.toISOString();
 
-    // Filter contributions for the current year
-    const currentYear = new Date().getFullYear().toString();
-    const currentYearTotal = data.total[currentYear] || 0;
-
-    const currentYearDays = data.contributions.filter(day => {
-        return day.date.startsWith(currentYear);
-    });
-
-    // Group days into weeks starting on Sunday (day 0) and ending on Saturday (day 6)
-    const weeks = [];
-    let currentWeek = { contributionDays: [] };
-
-    currentYearDays.forEach((day, index) => {
-        currentWeek.contributionDays.push({
-            contributionCount: day.count,
-            date: day.date
-        });
-
-        const dateObj = new Date(day.date);
-        if (dateObj.getDay() === 6 || index === currentYearDays.length - 1) {
-            weeks.push(currentWeek);
-            currentWeek = { contributionDays: [] };
+    const query = `
+        query($login: String!, $from: DateTime!, $to: DateTime!) {
+            user(login: $login) {
+                contributionsCollection(from: $from, to: $to) {
+                    contributionCalendar {
+                        totalContributions
+                        weeks {
+                            contributionDays {
+                                contributionCount
+                                date
+                            }
+                        }
+                    }
+                }
+            }
         }
+    `;
+
+    const res = await fetch("https://api.github.com/graphql", {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${GH_TOKEN}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            query,
+            variables: { login: GH_USER, from, to }
+        })
     });
 
+    if (!res.ok) throw new Error(`GraphQL ${res.status}`);
+    const json = await res.json();
+
+    if (json.errors) {
+        console.warn("GraphQL errors:", json.errors);
+        throw new Error(json.errors[0].message);
+    }
+
+    const cal = json.data.user.contributionsCollection.contributionCalendar;
     return {
-        totalContributions: currentYearTotal,
-        weeks: weeks
+        totalContributions: cal.totalContributions,
+        weeks: cal.weeks
     };
 }
 
