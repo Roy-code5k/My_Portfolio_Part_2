@@ -205,8 +205,10 @@ body {
 
 .lightbox-close {
     position: absolute;
-    top: -50px;
-    right: -50px;
+    top: -55px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     width: 40px;
     height: 40px;
     border: none;
@@ -1230,7 +1232,7 @@ button,
 
     /* Tech Stack Tile Customizations (Vertical Marquee containment) */
     .tile-stack {
-        height: 500px !important;
+        height: 530px !important;
     }
 
     /* Hide the entire My Journey section on mobile */

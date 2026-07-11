@@ -300,6 +300,14 @@
     transform: rotate(-3deg);
 }
 
+/* WhatsApp text responsive toggle */
+.wa-mobile {
+    display: none;
+}
+.wa-desktop {
+    display: inline;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .contact-section {
@@ -319,5 +327,13 @@
 
     .contact-card {
         padding: 2rem;
+    }
+
+    .wa-mobile {
+        display: inline !important;
+    }
+
+    .wa-desktop {
+        display: none !important;
     }
 }
