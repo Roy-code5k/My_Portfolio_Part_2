@@ -208,21 +208,13 @@
     box-shadow: 0 6px 18px rgba(255, 46, 99, 0.35);
 }
 
-/* Responsive Queries */
-@media (max-width: 992px) {
-    .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
-}
-
-@media (max-width: 640px) {
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
     .projects-grid {
         grid-template-columns: 1fr;
+        width: 90%;
+        max-width: 450px;
+        margin: 0 auto;
         gap: 1.5rem;
-    }
-
-    .flagship-title {
-        font-size: 2.2rem;
     }
 }

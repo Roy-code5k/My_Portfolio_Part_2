@@ -301,28 +301,23 @@
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 992px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-}
-
-@media (max-width: 640px) {
+@media (max-width: 768px) {
     .contact-section {
-        padding: 4rem 0 6rem 0;
+        width: 90%;
+        max-width: 450px;
+        margin: 0 auto;
+        padding: 4rem 0 2rem 0;
     }
 
     .contact-title {
         font-size: 2.2rem;
     }
 
-    .contact-card,
-    .connect-card {
-        padding: 2rem;
+    .contact-subtitle {
+        font-size: 0.95rem;
     }
 
-    .signature-text {
-        font-size: 4.5rem;
+    .contact-card {
+        padding: 2rem;
     }
 }

@@ -380,32 +380,21 @@
     }
 }
 
-/* ── Responsive ── */
-@media (max-width: 992px) {
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
     .github-stats-grid {
         grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 640px) {
-    .github-stats-grid {
-        grid-template-columns: 1fr;
+        gap: 1rem;
+        width: 90%;
+        max-width: 450px;
+        margin: 0 auto 2rem auto;
     }
 
-    .github-title {
-        font-size: 2.2rem;
+    .github-stat-card {
+        padding: 1.5rem 1rem;
     }
 
     .github-heatmap-card {
-        padding: 1.25rem;
-    }
-
-    .heatmap-day {
-        width: 10px;
-        height: 10px;
-    }
-
-    .heatmap-day-labels {
-        display: none;
+        display: none !important;
     }
 }

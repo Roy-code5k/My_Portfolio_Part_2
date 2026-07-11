@@ -285,26 +285,3 @@ body.loading {
     pointer-events: none;
 
 }
-
-
-/* ==========================================================
-   MOBILE
-========================================================== */
-
-@media(max-width:768px) {
-
-    .loader-robot {
-
-        width: 92vw;
-
-    }
-
-    #loader-status-text {
-
-        font-size: .75rem;
-
-        letter-spacing: .25rem;
-
-    }
-
-}

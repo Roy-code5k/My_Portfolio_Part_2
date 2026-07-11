@@ -54,6 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ── Wheel Event: discrete stepping ── */
     window.addEventListener("wheel", (e) => {
+        // Disable custom snapping wheel controls on mobile/tablet to prevent scroll freezing
+        // if (window.innerWidth <= 768) return;
 
         /* Outside the section → release control */
         if (!heroIsVisible()) {
@@ -96,5 +98,15 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => { cooldown = false; }, 100);
 
     }, { passive: false });
+
+    // /* ── Mobile Touch Scroll Highlights ── */
+    // window.addEventListener("scroll", () => {
+    //     if (window.innerWidth <= 768) {
+    //         if (heroIsVisible()) {
+    //             const nearest = findClosestItem();
+    //             setActive(nearest);
+    //         }
+    //     }
+    // }, { passive: true });
 
 });

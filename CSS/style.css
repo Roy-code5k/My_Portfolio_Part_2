@@ -427,6 +427,10 @@ body {
     transform: translate(50%, -50%);
 }
 
+.blob-mobile {
+    display: none;
+}
+
 /* Custom Cursor */
 .cursor-dot,
 .cursor-outline {
@@ -1189,4 +1193,64 @@ button,
 
 .cursor-outline.cursor-click {
     transform: translate(-50%, -50%) scale(1.45);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    body {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .nav-views {
+        display: none !important;
+    }
+
+    /* Bento Container Stacking */
+    .bento-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 1.5rem;
+        padding: 0;
+        width: 90%;
+        max-width: 450px;
+        margin: 0 auto 9rem auto;
+    }
+
+    .bento-tile {
+        grid-column: span 1 !important;
+        grid-row: auto !important;
+        height: auto !important;
+    }
+
+    /* Intro Tile Customizations */
+    .tile-intro h1 {
+        font-size: 2.8rem;
+    }
+
+    /* Tech Stack Tile Customizations (Vertical Marquee containment) */
+    .tile-stack {
+        height: 500px !important;
+    }
+
+    /* Hide the entire My Journey section on mobile */
+    .journey-section {
+        display: none !important;
+    }
+
+    /* Unique Mobile background color blob placed between Tech Stack and Beyond Code */
+    .blob-mobile {
+        display: block !important;
+        position: absolute;
+        top: 1270px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 330px;
+        height: 330px;
+        background: linear-gradient(135deg, #00f2fe, #007cf0);
+        /* Glowing neon cyan to blue */
+        border-radius: 50%;
+        z-index: 0;
+        opacity: 0.95;
+    }
 }

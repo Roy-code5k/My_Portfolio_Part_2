@@ -98,3 +98,40 @@
     white-space: nowrap;
     border-width: 0;
 }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .scroll-hero-wrapper {
+        margin-top: -45vh !important;
+        margin-bottom: 4rem !important;
+        height: 125vh !important;
+    }
+
+    .scroll-hero {
+        margin-left: 0 !important;
+        justify-content: center !important;
+    }
+
+    .scroll-hero-content {
+        justify-content: center !important;
+        text-align: center !important;
+        width: 100%;
+    }
+
+    /* Hide the 'I am a' prefix on mobile */
+    .scroll-hero-content h1 {
+        display: none !important;
+    }
+
+    .scroll-hero-content ul {
+        text-align: center !important;
+        width: 100%;
+        padding-left: 0 !important;
+    }
+
+    .scroll-hero-content li {
+        font-size: 2.4rem;
+        text-align: center !important;
+        line-height: 1.5;
+    }
+}
